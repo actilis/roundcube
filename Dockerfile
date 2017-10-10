@@ -1,4 +1,4 @@
-FROM actilis/apache-php:latest
+FROM actilis/httpd-php:latest
 
 MAINTAINER François MICAUX <fmicaux@actilis.net>
 

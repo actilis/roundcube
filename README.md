@@ -21,6 +21,7 @@ Default values are probably not suitable for your installation... (db, imap & sm
 - SMTP_HELO_HOST
 
 ### HTTPD/prefork tuning
+
 - MPM_START
 - MPM_MINSPARE
 - MPM_MAXSPARE

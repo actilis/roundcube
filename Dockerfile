@@ -1,6 +1,11 @@
 FROM actilis/httpd-php:latest
 
-MAINTAINER François MICAUX <fmicaux@actilis.net>
+MAINTAINER Francois MICAUX <dok-images@actilis.net> 
+
+LABEL Vendor="Actilis" \
+      License=GPLv2 \
+      Version=2017.10
+
 
 EXPOSE 80
 

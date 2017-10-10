@@ -18,7 +18,7 @@ WORKDIR /var/www/html
 RUN rm -rf /var/www/html/* \
  && curl -SL ${RC_URL} | tar -C /var/www/html -xz --strip-components 1 \
  && mkdir -p /var/www/html/plugins/thunderbird_labels \
- && rm -rf installer SQL \
+ && rm -rf installer \
  && mv composer.json-dist composer.json 
 
 # Plugins : Stable

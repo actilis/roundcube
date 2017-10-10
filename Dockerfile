@@ -6,7 +6,6 @@ LABEL Vendor="Actilis" \
       License=GPLv2 \
       Version=2017.10
 
-
 EXPOSE 80
 
 ENV RC_VERSION 1.3.1

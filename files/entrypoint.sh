@@ -5,8 +5,6 @@ set -e
 [ "$DEBUG" == 'true' ] && set -x
 
 
-
-
 genpasswd() {
     export LC_CTYPE=C  # Quiet tr warnings
     local l=$1
@@ -44,4 +42,5 @@ export DES_KEY=$(genpasswd 24)
 # MySQL Service
 export DB_DSNW="mysql://${DATABASE_USER}:${DATABASE_PASS}@${DATABASE_HOST}/${DATABASE_NAME}"
 
+echo $@
 exec $@

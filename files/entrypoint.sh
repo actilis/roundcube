@@ -42,5 +42,22 @@ export DES_KEY=$(genpasswd 24)
 # MySQL Service
 export DB_DSNW="mysql://${DATABASE_USER}:${DATABASE_PASS}@${DATABASE_HOST}/${DATABASE_NAME}"
 
+# Make rouncube config from template
+sed \
+    -e "s,_IMAP_PROTO_,${IMAP_PROTO}," \
+    -e "s,_IMAP_SERVER_,${IMAP_SERVER}," \
+    -e "s,_IMAP_PORT_,${IMAP_PORT}," \
+    -e "s,_SMTP_PROTO_,${SMTP_PROTO}," \
+    -e "s,_SMTP_SERVER_,${SMTP_SERVER}," \
+    -e "s,_SMTP_PORT_,${SMTP_PORT}," \
+    -e "s,_SMTP_HELO_HOST_,${SMTP_HELO_HOST}," \
+    -e "s,_DES_KEY_,${DES_KEY}," \
+    -e "s,_DB_DSNW_,${DB_DSNW}," \
+  /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
+rm -f /var/www/html/config/config.inc.tmpl
+
+chgrp           apache /var/www/html/config/{defaults,config}.inc.php 
+chmod    440           /var/www/html/config/{defaults,config}.inc.php
+
 echo $@
 exec $@

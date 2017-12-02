@@ -14,8 +14,10 @@ Default values are probably not suitable for your installation... (db, imap & sm
 - DATABASE_USER
 - DATABASE_PASS
 - DATABASE_NAME
+- IMAP_PROTO
 - IMAP_SERVER
 - IMAP_PORT
+- SMTP_PROTO
 - SMTP_SERVER
 - SMTP_PORT
 - SMTP_HELO_HOST

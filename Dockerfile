@@ -3,12 +3,12 @@ FROM actilis/httpd-php:latest
 MAINTAINER Francois MICAUX <dok-images@actilis.net> 
 
 LABEL Vendor="Actilis" \
-      License=GPLv3 \
-      Version=2017.12
+      License="GPLv3" \
+      Version="2018.1"
 
 EXPOSE 80
 
-ENV RC_VERSION=1.3.3
+ENV RC_VERSION=1.3.4
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz
 
 WORKDIR /var/www/html

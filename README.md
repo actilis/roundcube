@@ -35,6 +35,7 @@ Default values are probably not suitable for your installation... (db, imap & sm
 
 Shoud-be HTTPSified behind a reverse Proxy.
 
+```
 roundcube:
   image: actilis/roundcube
   #image: rctest:debian
@@ -54,4 +55,4 @@ roundcube:
     - DATABASE_USER=dbuser
     - DATABASE_PASS=dbpass
     - DATABASE_NAME=dbname
-
+```

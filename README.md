@@ -30,3 +30,28 @@ Default values are probably not suitable for your installation... (db, imap & sm
 - MPM_MAXWORKERS
 - MPM_MAXCONNECTIONS
 
+
+### Example docker-compose.yml
+
+Shoud-be HTTPSified behind a reverse Proxy.
+
+roundcube:
+  image: actilis/roundcube
+  #image: rctest:debian
+  restart: on-failure
+  ports:
+  - "80:80"
+  environment:
+    - VIRTUAL_HOST=webmail.your-domain
+    - HTTPD_SERVERADMIN=mailadmin@your-domain
+    - IMAP_PROTO=ssl
+    - IMAP_SERVER=mail.your-domain
+    - IMAP_PORT=993
+    - SMTP_PROTO=tls
+    - SMTP_SERVER=smtp.your-domain
+    - SMTP_PORT=587
+    - DATABASE_HOST=mysqlserver
+    - DATABASE_USER=dbuser
+    - DATABASE_PASS=dbpass
+    - DATABASE_NAME=dbname
+

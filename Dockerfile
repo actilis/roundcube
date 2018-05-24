@@ -1,5 +1,4 @@
-#FROM php:7.2-apache
-FROM test:debian
+FROM actilis/httpd-php:latest
 
 MAINTAINER Francois MICAUX <dok-images@actilis.net> 
 

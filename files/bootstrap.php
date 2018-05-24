@@ -13,6 +13,7 @@
   // Wait for db connection (each 3s, timeout to DATABASE_TIMEOUT seconds)
   $try = 0; 
   $sleeptime = 3;
+  echo "Waiting for the DB...\n"; 
   do
   {
     try {
@@ -31,7 +32,6 @@
       echo "Loading schema...\n";
       $sql = file_get_contents('/var/www/html/SQL/mysql.initial.sql');
       $qr = $db->exec($sql);
-      echo "$qr\n";
   } else {
       echo "Database already exists.\n";
   }

@@ -9,42 +9,39 @@ LABEL Vendor="Actilis" \
 ENV RC_VERSION=1.3.6
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz
 
+RUN rm -rf /var/www/html/* 
+
 WORKDIR /var/www/html
 
-# Install Pear modules, and code from git 
-RUN rm -rf /var/www/html/* \
- && curl -SL ${RC_URL} | tar -C /var/www/html -xz --strip-components 1 \
- && mkdir -p /var/www/html/plugins/thunderbird_labels \
- && rm -rf installer \
- && mv composer.json-dist composer.json 
-
+# Install Roundcube and configure Composer
 # Adjust Compser config : stability to dev for some requirements
-RUN head -n -2 composer.json > composer.json.tmp \
- &&    sed -i -e '$a\    },\n    "minimum-stability": "dev",\n    "prefer-stable": true\n}' composer.json.tmp \
- &&    mv composer.json.tmp composer.json
+RUN curl -SL ${RC_URL} | tar -C /var/www/html -xz --strip-components 1 \
+ && mkdir -p /var/www/html/plugins/thunderbird_labels \
+ && rm -rf installer
 
 # Run Composer requirements
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer -n require \
+RUN head -n -2 composer.json-dist > composer.json \
+ && sed -i -e '$a\    },\n    "minimum-stability": "dev",\n    "prefer-stable": true\n}' composer.json \
+ && COMPOSER_ALLOW_SUPERUSER=1 composer -n require \
       pear/console_commandline \
       phpunit/php-code-coverage:4.0.x-dev \
       phpunit/php-token-stream:2.0.X-dev \
       johndoh/contextmenu \
       weird-birds/thunderbird_labels \
       cor/message_highlight \
-      prodrigestivill/gravatar
+      prodrigestivill/gravatar 
 
 # Plugins : Kolab
 RUN COMPOSER_ALLOW_SUPERUSER=1 composer -n require  kolab/libcalendaring kolab/calendar 
 
 # Carddav, but no CalDAV... (http://www.roundcubeforum.net/index.php/topic,24189.0.html)
 # NEEDS PHP<7 # RUN composer -n require roundcube/carddav
+# NEEDS PHP<7 # COPY files/carddav-config.inc.php    /var/www/html/plugins/carddav/config.inc.php
 
 # Plugins : dev / unstable
 #RUN composer -n require melanie2/jquery_mobile melanie2/mobile melanie2/infinitescroll 
 #RUN composer -n require takika/rc_smime
 #RUN composer -n require stwa/google-addressbook sblaisot/automatic_addressbook 
-
-# NEEDS PHP<7 # COPY files/carddav-config.inc.php    /var/www/html/plugins/carddav/config.inc.php
 
 # Permissions
 RUN  chown -R root:root /var/www/html && \

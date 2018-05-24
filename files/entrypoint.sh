@@ -56,8 +56,7 @@ sed \
   /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
 rm -f /var/www/html/config/config.inc.tmpl
 
-chgrp           apache /var/www/html/config/{defaults,config}.inc.php 
-chmod    440           /var/www/html/config/{defaults,config}.inc.php
+chgrp           www-data /var/www/html/config/{defaults,config}.inc.php 
+chmod    440             /var/www/html/config/{defaults,config}.inc.php
 
-echo $@
 exec $@

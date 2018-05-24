@@ -33,26 +33,10 @@ Default values are probably not suitable for your installation... (db, imap & sm
 
 ### Example docker-compose.yml
 
-Shoud-be HTTPSified behind a reverse Proxy.
+An example docker-compose.yml is given to test this image.
 
-```
-roundcube:
-  image: actilis/roundcube
-  #image: rctest:debian
-  restart: on-failure
-  ports:
-  - "80:80"
-  environment:
-    - VIRTUAL_HOST=webmail.your-domain
-    - HTTPD_SERVERADMIN=mailadmin@your-domain
-    - IMAP_PROTO=ssl
-    - IMAP_SERVER=mail.your-domain
-    - IMAP_PORT=993
-    - SMTP_PROTO=tls
-    - SMTP_SERVER=smtp.your-domain
-    - SMTP_PORT=587
-    - DATABASE_HOST=mysqlserver
-    - DATABASE_USER=dbuser
-    - DATABASE_PASS=dbpass
-    - DATABASE_NAME=dbname
-```
+Please tune the server-names in cas you don't have a mailbox on our servers.
+
+The mysql-root password in the docker-compose.yml is "secret", don't leave it as it is.
+The docker-compose.yml runs a PMA container to see the dabatase, for dev and upgrade purposes. 
+It may be not necessary for you.

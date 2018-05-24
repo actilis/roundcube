@@ -44,12 +44,6 @@ RUN COMPOSER_ALLOW_SUPERUSER=1 composer -n require  kolab/libcalendaring kolab/c
 #RUN composer -n require takika/rc_smime
 #RUN composer -n require stwa/google-addressbook sblaisot/automatic_addressbook 
 
-# Configuration
-COPY files/entrypoint.sh             /rc-ep.sh
-COPY files/bootstrap.php             /
-COPY files/defaults.inc.php          /var/www/html/config/defaults.inc.php
-COPY files/config.inc.tmpl           /var/www/html/config/config.inc.tmpl
-
 # NEEDS PHP<7 # COPY files/carddav-config.inc.php    /var/www/html/plugins/carddav/config.inc.php
 
 # Permissions
@@ -57,6 +51,12 @@ RUN  chown -R root:root /var/www/html && \
      chmod -R 755       /var/www/html && \
      chown -R www-data:www-data /var/www/html/temp && \
      chown -R www-data:www-data /var/www/html/logs 
+
+# Configuration
+COPY --chown=www-data:www-data files/defaults.inc.php  /var/www/html/config/defaults.inc.php
+COPY --chown=www-data:www-data files/config.inc.tmpl   /var/www/html/config/config.inc.tmpl
+COPY --chown=www-data:www-data files/entrypoint.sh     /rc-ep.sh
+COPY --chown=www-data:www-data files/bootstrap.php     /
 
 
 # Entrypoint will call CMD from from httpd-php after taking care of parameters (env-vars)

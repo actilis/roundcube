@@ -1,0 +1,65 @@
+version: "3.6"
+
+networks:
+  rcnet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 10.44.56.0/28
+
+volumes:
+  dbstore:
+  rcstore:
+
+services:
+  db:
+    image: mysql:5.7
+    hostname: db.local
+    networks:
+      - rcnet
+    environment:
+    - MYSQL_ROOT_PASSWORD=secret
+    - MYSQL_DATABASE=rc
+    - MYSQL_USER=rcuser
+    - MYSQL_PASSWORD=rcpass
+    volumes:
+    - type: volume
+      source: dbstore
+      target: /var/lib/mysql
+  pma:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+    - db
+    networks:
+    - rcnet
+    environment:
+    - PMA_HOST=db
+    hostname: pma.local
+    ports:
+    - "8080:80"
+
+  roundcube:
+    depends_on:
+    - db
+    image: actilis/roundcube:dev
+    build:
+      context: .
+    restart: on-failure
+    hostname: rc.local
+    networks:
+    - rcnet
+    ports:
+    - "80:80"
+    environment:
+    - IMAP_PROTO=ssl
+    - IMAP_SERVER=mail.actilis.net
+    - IMAP_PORT=993
+    - SMTP_PROTO=tls
+    - SMTP_SERVER=smtpauth.actilis.net
+    - SMTP_PORT=587
+    - DATABASE_HOST=db
+    - DATABASE_USER=rcuser
+    - DATABASE_PASS=rcpass
+    - DATABASE_NAME=rc
+    - DATABASE_TIMEOUT=30
+

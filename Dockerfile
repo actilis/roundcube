@@ -1,4 +1,4 @@
-FROM actilis/httpd-php:latest
+FROM actilis/httpd-php:debian-apache
 
 MAINTAINER Francois MICAUX <dok-images@actilis.net> 
 

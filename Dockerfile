@@ -4,7 +4,7 @@ MAINTAINER Francois MICAUX <dok-images@actilis.net>
 
 LABEL Vendor="Actilis" \
       License="GPLv3" \
-      Version="2018.6"
+      Version="2018.06.16"
 
 ENV RC_VERSION=1.3.6
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz
@@ -53,6 +53,7 @@ RUN  chown -R root:root /var/www/html && \
 COPY --chown=www-data:www-data files/defaults.inc.php  /var/www/html/config/defaults.inc.php
 COPY --chown=www-data:www-data files/config.inc.tmpl   /var/www/html/config/config.inc.tmpl
 COPY --chown=www-data:www-data files/entrypoint.sh     /rc-ep.sh
+COPY --chown=www-data:www-data files/initial-db.sql    /tmp/initial-db.sql
 COPY --chown=www-data:www-data files/bootstrap.php     /
 
 

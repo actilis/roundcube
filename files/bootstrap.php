@@ -30,7 +30,7 @@
   
   if ($res[0] == 0) {
       echo "Loading schema...\n";
-      $sql = file_get_contents('/var/www/html/SQL/mysql.initial.sql');
+      $sql = file_get_contents('/tmp/initial-db.sql');
       $qr = $db->exec($sql);
   } else {
       echo "Database already exists.\n";

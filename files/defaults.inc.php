@@ -40,7 +40,7 @@ $config['db_dsnw_noread'] = false;
 $config['db_persistent'] = false;
 
 // you can define specific table (and sequence) names prefix
-$config['db_prefix'] = '';
+$config['db_prefix'] = 'rcub_';
 
 // Mapping of table names and connections to use for ALL operations.
 // This can be used in a setup with replicated databases and a DB master

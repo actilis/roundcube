@@ -50,13 +50,6 @@ COPY  files/entrypoint.sh     /rc-ep.sh
 COPY  files/initial-db.sql    /tmp/initial-db.sql
 COPY  files/bootstrap.php     /
 
-# Permissions
-RUN  chown -R root:root /var/www/html && \
-     chmod -R 755       /var/www/html && \
-     chown -R www-data:www-data /var/www/html/config && \
-     chown -R www-data:www-data /var/www/html/temp   && \
-     chown -R www-data:www-data /var/www/html/logs 
-
 
 # Entrypoint will call CMD from from httpd-php after taking care of parameters (env-vars)
 ENTRYPOINT ["/rc-ep.sh"]

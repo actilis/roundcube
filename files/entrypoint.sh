@@ -52,10 +52,17 @@ sed \
   /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
 rm -f /var/www/html/config/config.inc.tmpl
 
+# Permissions
+chown -R root:root /var/www/html
+chmod -R 755       /var/www/html 
+chown -R www-data:www-data /var/www/html/config
+chown -R www-data:www-data /var/www/html/temp
+chown -R www-data:www-data /var/www/html/logs
 chown    root.www-data   /var/www/html/config/{defaults,config}.inc.php 
 chmod    440             /var/www/html/config/{defaults,config}.inc.php
 
 # Appel à bootstrap.php Créer la base si elle n'existe pas
 php /bootstrap.php
 
+[ "$DEBUG" == 'true' ] && exec /bin/bash
 exec $@

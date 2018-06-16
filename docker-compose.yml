@@ -12,6 +12,7 @@ volumes:
   rcstore:
 
 services:
+
   db:
     image: mysql:5.7
     hostname: db.local
@@ -19,13 +20,14 @@ services:
       - rcnet
     environment:
     - MYSQL_ROOT_PASSWORD=secret
-    - MYSQL_DATABASE=rc
     - MYSQL_USER=rcuser
     - MYSQL_PASSWORD=rcpass
+    - MYSQL_DATABASE=rcub
     volumes:
     - type: volume
       source: dbstore
       target: /var/lib/mysql
+
   pma:
     image: phpmyadmin/phpmyadmin
     depends_on:
@@ -51,15 +53,18 @@ services:
     ports:
     - "80:80"
     environment:
+    - DATABASE_HOST=db
+    - DATABASE_USER=rcuser
+    - DATABASE_PASS=rcpass
+    - DATABASE_NAME=rcub
+    - DATABASE_TIMEOUT=30
     - IMAP_PROTO=ssl
     - IMAP_SERVER=mail.actilis.net
     - IMAP_PORT=993
     - SMTP_PROTO=tls
     - SMTP_SERVER=smtpauth.actilis.net
     - SMTP_PORT=587
-    - DATABASE_HOST=db
-    - DATABASE_USER=rcuser
-    - DATABASE_PASS=rcpass
-    - DATABASE_NAME=rc
-    - DATABASE_TIMEOUT=30
+#    command: bash
+#    stdin_open: true
+#    tty: true
 

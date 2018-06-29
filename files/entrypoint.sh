@@ -50,11 +50,12 @@ sed \
     -e "s,_DES_KEY_,${DES_KEY}," \
     -e "s,_DB_DSNW_,${DB_DSNW}," \
   /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
+
 rm -f /var/www/html/config/config.inc.tmpl
 
 # Permissions
-chown -R root:root /var/www/html
-chmod -R 755       /var/www/html 
+#chown -R root:root /var/www/html
+#chmod -R 755       /var/www/html 
 chown -R www-data:www-data /var/www/html/config
 chown -R www-data:www-data /var/www/html/temp
 chown -R www-data:www-data /var/www/html/logs

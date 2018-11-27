@@ -1,4 +1,4 @@
-FROM actilis/httpd-php:debian-apache-composer
+FROM actilis/httpd-php:debian-apache
 EXPOSE 80
 
 MAINTAINER Francois MICAUX <dok-images@actilis.net> 
@@ -11,20 +11,19 @@ ENV RC_VERSION=1.3.8
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz
 
 RUN rm -rf /var/www/html/* 
-
 WORKDIR /var/www/html
 
-
 # Install Roundcube and configure Composer
-# Adjust Compser config : stability to dev for some requirements
-RUN curl -SL ${RC_URL} | tar -C /var/www/html -xz --strip-components 1 \
+# Adjust Composer config : stability to dev for some requirements
+RUN echo Download ${RC_URL} &&  curl -SL ${RC_URL} | tar -C /var/www/html -xz --strip-components 1 \
  && mkdir -p /var/www/html/plugins/thunderbird_labels \
- && rm -rf installer
+ && rm -rf /var/www/html/installer \
+ && head -n -2 composer.json-dist > composer.json \
+ && sed -i -e '$a\    },\n    "minimum-stability": "dev",\n    "prefer-stable": true\n}' composer.json \
+ && ls -l 
 
 # Run Composer requirements
-RUN head -n -2 composer.json-dist > composer.json \
- && sed -i -e '$a\    },\n    "minimum-stability": "dev",\n    "prefer-stable": true\n}' composer.json \
- && COMPOSER_ALLOW_SUPERUSER=1 composer -n require \
+RUN COMPOSER_ALLOW_SUPERUSER=1 composer -n require \
       pear/console_commandline \
       phpunit/php-code-coverage:4.0.x-dev \
       phpunit/php-token-stream:2.0.X-dev \

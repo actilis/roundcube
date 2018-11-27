@@ -1,25 +1,18 @@
-FROM actilis/httpd-php:debian-apache
+FROM actilis/httpd-php:debian-apache-composer
 EXPOSE 80
 
 MAINTAINER Francois MICAUX <dok-images@actilis.net> 
 
 LABEL Vendor="Actilis" \
       License="GPLv3" \
-      Version="2018.09.19"
+      Version="2018.11.27"
 
-ENV RC_VERSION=1.3.7
+ENV RC_VERSION=1.3.8
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz
 
 RUN rm -rf /var/www/html/* 
 
 WORKDIR /var/www/html
-
-# Install Composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
- && php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo     'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
- && php composer-setup.php \
- && php -r "unlink('composer-setup.php');" \
- && mv composer.phar /usr/local/bin/composer
 
 
 # Install Roundcube and configure Composer

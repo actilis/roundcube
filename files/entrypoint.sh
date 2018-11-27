@@ -12,6 +12,9 @@ genpasswd() {
     cat /dev/urandom | tr -dc A-Za-z0-9_ | head -c ${l}
 }
 
+# Session Lifetime (minutes)
+export SESSION_LIFETIME=${SESSION_LIFETIME:-30}
+
 # Database
 export DATABASE_HOST=${DATABASE_HOST:-db}
 export DATABASE_USER=${DATABASE_USER:-root}
@@ -49,6 +52,7 @@ sed \
     -e "s,_SMTP_HELO_HOST_,${SMTP_HELO_HOST}," \
     -e "s,_DES_KEY_,${DES_KEY}," \
     -e "s,_DB_DSNW_,${DB_DSNW}," \
+    -e "s,_SESSION_LIFETIME_,${SESSION_LIFETIME}," \
   /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
 
 rm -f /var/www/html/config/config.inc.tmpl

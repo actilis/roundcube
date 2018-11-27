@@ -2,6 +2,8 @@
 
 /* Local configuration for Roundcube Webmail */
 
+$config['session_lifetime'] = _SESSION_LIFETIME_;
+
 // ----------------------------------
 // SQL DATABASE
 // ----------------------------------
@@ -131,5 +133,4 @@ $config['message_cache_lifetime'] = '10d';
 // these folders will also be displayed with localized names
 // NOTE: Use folder names with namespace prefix (INBOX. on Courier-IMAP)
 $config['default_folders'] = array('INBOX', 'Drafts', 'Sent', 'Junk', 'Trash');
-
 

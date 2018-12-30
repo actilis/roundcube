@@ -5,7 +5,7 @@ MAINTAINER Francois MICAUX <dok-images@actilis.net>
 
 LABEL Vendor="Actilis" \
       License="GPLv3" \
-      Version="2018.11.27"
+      Version="2018.12.30"
 
 ENV RC_VERSION=1.3.8
 ENV RC_URL=https://github.com/roundcube/roundcubemail/releases/download/${RC_VERSION}/roundcubemail-${RC_VERSION}-complete.tar.gz

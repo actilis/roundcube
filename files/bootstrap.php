@@ -12,7 +12,7 @@
   
   // Wait for db connection (each 3s, timeout to DATABASE_TIMEOUT seconds)
   $try = 0; 
-  $sleeptime = 3;
+  $sleeptime = 5;
   echo "Waiting for the DB...\n"; 
   do
   {

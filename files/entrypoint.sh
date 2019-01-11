@@ -52,10 +52,17 @@ sed \
     -e "s,_SMTP_HELO_HOST_,${SMTP_HELO_HOST}," \
     -e "s,_DES_KEY_,${DES_KEY}," \
     -e "s,_DB_DSNW_,${DB_DSNW}," \
+    -e "s,_ADMIN_URL_,${ADMIN_URL}," \
     -e "s,_SESSION_LIFETIME_,${SESSION_LIFETIME}," \
   /var/www/html/config/config.inc.tmpl > /var/www/html/config/config.inc.php
 
 rm -f /var/www/html/config/config.inc.tmpl
+
+# Ajout dans skin larry :
+sed -i -e "/support/a\\\$labels['admin'] = 'Gérer votre compte';" /var/www/html/program/localization/fr_FR/labels.inc
+sed -i -e "/display_version/d" \
+       -e "/loginfooter/i\
+        <roundcube:if condition=\"config:admin_url\" /> <a href=\"<roundcube:var name='config:admin_url' />\" target=\"_blank\" class=\"support-link\"><roundcube:label name=\"admin\" /></a><roundcube:endif /> " /var/www/html/skins/larry/templates/login.html 
 
 # Permissions
 #chown -R root:root /var/www/html
